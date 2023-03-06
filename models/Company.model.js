@@ -6,7 +6,7 @@ const companySchema = new Schema(
     companyName: { type: String, required: true },
     /* logoImageUrl: { type: String }, */
     address: { type: String },
-    phoneNumber: { type: Number },
+    phoneNumber: { type: String },
     website: { type: String },
     mainContactName: { type: String },
     mainContactEmail: { type: String },
