@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const Journey = require('../models/Journey.model')
-const Newhire = require("../models/NewHire.model");
+const NewHire = require("../models/NewHire.model");
 const Company = require("../models/Company.model");
 
 //  Creating a New-hire
@@ -23,7 +23,9 @@ router.post("/newhires", (req, res, next) => {
     anerkennung,
     vorabpruefung,
     comments,
+    companyId
   } = req.body;
+  console.log(req.body)
 
   NewHire.create({
     firstName,
@@ -43,58 +45,43 @@ router.post("/newhires", (req, res, next) => {
     company: companyId,
   })
     .then((newNewHire) => {
+      console.log(newNewHire)
       return Company.findByIdAndUpdate(companyId, {
         $push: { newHires: newNewHire._id },
-      });
-    })
-    .then(()=>{
-      Journey.create({newHire: newNewHire._id, stages: {
-        intro: { kickOffCall, documentsReceived},
-    
-        anerkennung: {
-          introEmailSent: { type: Date },
-          anerkennungResponseReceived: { type: Date },
-        },
-    
-        vorabpruefung: {
-          formsRequested: { type: Date },
-          docsReceived: { type: Date },
-          requestSubmitted: { type: Date },
-          responseScannedandSent: { type: Date },
-        },
-    
-        visa: {
-          visaApptBooked: { type: Date },
-          visaAppointmentDate: { type: Date },
-          visaScanReceived: { type: Date },
-          visaValidUntil: { type: Date },
-        },
-    
-        relocation: {
-          arrivalDate: { type: Date },
-          coachMatched: { type: Date },
-          coach: { type: String },
-          beginsOn: { type: Date },
-          numberOfWeeks: { type: Number },
-          endDate: { type: Date },
-        },
-    
-        workPermit: {
-          formsRequested: { type: Date },
-          formsRecieved: { type: Date },
-          submitted: { type: Date },
-          apptDateGiven: { type: Date },
-          appointmentDate: { type: Date },
-          issued: { type: Date },
-        },
-      } })
-      .then(()=>{
-        console.log('works')
       })
-      .catch((err)=> console.log(err))
+      .then(()=>{
+        Journey.create({newHire: newNewHire._id})
+        .then(()=>{
+          console.log('works')
+        })
+        .catch((err)=> console.log(err))
+      })
+      .catch((err) => res.json(err));
     })
-    .then((response) => res.json(response))
     .catch((err) => res.json(err));
 });
+
+
+router.get("/companies/:companyId/:newHireId", (req, res, next)=> {
+
+})
+
+// /* get a company by id */
+// router.get("/companies/:companyId", (req, res, next) => {
+//   const { companyId } = req.params;
+
+//   if (!mongoose.Types.ObjectId.isValid(companyId)) {
+//     res.status(400).json({ message: "Specified id is not valid" });
+//     return;
+//   }
+
+//   /* get array of new-hires */
+
+//   Company.findById(companyId)
+//   .populate("newHires")
+//   .then((company) => res.status(200).json(company))
+//   .catch((error) => res.json(error));
+// });
+  
 
 module.exports = router;

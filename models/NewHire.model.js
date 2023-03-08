@@ -13,8 +13,8 @@ const newHireSchema = new Schema(
     comingFrom: { type: String },
     bookedOn: { type: Date },
     startDate: { type: Date },
-    spouse: { type: Boolean, default: false },
-    children: { type: Boolean, default: false },
+    spouse: { type: Boolean},
+    children: { type: Boolean},
     relocationPackage: { type: Number, enum: [0, 5, 12, 20] },
     immigrationPackage: {
       type: String,
@@ -29,8 +29,8 @@ const newHireSchema = new Schema(
         "Work Permit Only",
       ],
     },
-    anerkennung: { type: Boolean, default: false },
-    vorabpruefung: { type: Boolean, default: false },
+    anerkennung: { type: Boolean},
+    vorabpruefung: { type: Boolean},
     comments: [String],
   },
   {
