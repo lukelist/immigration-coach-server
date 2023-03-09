@@ -15,11 +15,6 @@ const cors = require("cors");
 
 const FRONTEND_URL = process.env.ORIGIN
 
-app.use(
-  cors({
-    origin: [FRONTEND_URL ]
-  })
-)
 
 // Middleware configuration
 module.exports = (app) => {
