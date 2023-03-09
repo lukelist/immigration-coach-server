@@ -66,22 +66,21 @@ router.get("/companies/:companyId/:newHireId", (req, res, next)=> {
 
 })
 
-// /* get a company by id */
-// router.get("/companies/:companyId", (req, res, next) => {
-//   const { companyId } = req.params;
+// /* get a journey by id */
+router.get("/journey/:newhireId", (req, res, next) => {
+  const { newhireId } = req.params;
 
-//   if (!mongoose.Types.ObjectId.isValid(companyId)) {
-//     res.status(400).json({ message: "Specified id is not valid" });
-//     return;
-//   }
+  if (!mongoose.Types.ObjectId.isValid(newhireId)) {
+    res.status(400).json({ message: "Specified id is not valid" });
+    return;
+  }
 
-//   /* get array of new-hires */
+  Journey.find({newHire:newhireId})
 
-//   Company.findById(companyId)
-//   .populate("newHires")
-//   .then((company) => res.status(200).json(company))
-//   .catch((error) => res.json(error));
-// });
+  .then((journey) => res.status(200).json(journey))
+  .catch((error) => res.json(error));
+
+});
   
 
 module.exports = router;

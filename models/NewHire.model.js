@@ -6,16 +6,15 @@ const newHireSchema = new Schema(
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     journey: { type: Schema.Types.ObjectId, ref: "Journey" },
-    /* stage: {type: String, enum: ["pre-visa", "visa", "relocation", "work-permit", "closed"]}, */
     company: { type: Schema.Types.ObjectId, ref: "Company" },
     caseOwner: { type: String, required: true },
     nationality: { type: String },
     comingFrom: { type: String },
     bookedOn: { type: Date },
     startDate: { type: Date },
-    spouse: { type: Boolean},
-    children: { type: Boolean},
-    relocationPackage: { type: Number, enum: [0, 5, 12, 20] },
+    spouse: { type: String},
+    children: { type: String},
+    relocationPackage: { type: String, enum: ["0", "5", "12", "20"] },
     immigrationPackage: {
       type: String,
       enum: [
@@ -29,9 +28,9 @@ const newHireSchema = new Schema(
         "Work Permit Only",
       ],
     },
-    anerkennung: { type: Boolean},
-    vorabpruefung: { type: Boolean},
-    comments: [String],
+    anerkennung: { type: String},
+    vorabpruefung: { type: String},
+    comments: String,
   },
   {
     timestamps: true,
