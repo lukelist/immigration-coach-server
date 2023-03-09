@@ -25,6 +25,9 @@ app.use("/", companyRoutes);
 const newhireRoutes = require("./routes/newhire.routes");
 app.use("/", newhireRoutes);
 
+const journeyRoutes = require("./routes/journey.routes");
+app.use("/", journeyRoutes);
+
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
 
